@@ -1,0 +1,18 @@
+# Упакованное расширение
+*.zip
+*.xpi
+web-ext-artifacts/
+.web-extension-id
+.amo-upload-uuid
+
+# VS Code 
+.vscode/*
+!.vscode/launch.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*

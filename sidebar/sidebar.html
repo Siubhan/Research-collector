@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Research Collector — Панель</title>
+  <link rel="stylesheet" href="sidebar.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Шапка -->
+    <header class="header">
+      <span class="logo">📚</span>
+      <h1>Research Collector</h1>
+    </header>
+
+    <!-- Сессии -->
+    <section class="sessions-panel">
+      <div class="panel-row">
+        <h2 class="panel-title">Работы</h2>
+        <button id="btn-new-session" class="chip-btn">＋ Новая</button>
+      </div>
+      <div id="sessions-list" class="sessions-list"></div>
+    </section>
+
+    <!-- Записи текущей сессии -->
+    <section class="entries-panel">
+      <div class="panel-row">
+        <h2 class="panel-title">
+          Цитаты:
+          <span id="session-name" class="accent">—</span>
+        </h2>
+        <div class="export-row">
+          <button id="btn-export-json" class="chip-btn">JSON</button>
+          <button id="btn-export-txt" class="chip-btn">TXT</button>
+        </div>
+      </div>
+
+      <!-- Поиск -->
+      <input id="search" type="search" placeholder="Поиск по цитатам…" />
+
+      <!-- Список цитат -->
+      <div id="entries-list" class="entries-list">
+        <p class="empty-state">Нет сохранённых цитат.<br>Выделите текст на странице и выберите «Сохранить цитату».</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

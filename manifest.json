@@ -1,0 +1,50 @@
+{
+  "manifest_version": 2,
+  "name": "Research Collector",
+  "version": "1.0.0",
+  "description": "Сохраняйте цитаты и источники для научных работ",
+  "author": "You",
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "downloads",
+    "tabs"
+  ],
+
+  "background": {
+    "scripts": ["background/background.js"],
+    "persistent": false
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "48": "icons/icon-48.png",
+      "96": "icons/icon-96.png"
+    },
+    "default_title": "Research Collector"
+  },
+
+  "sidebar_action": {
+    "default_panel": "sidebar/sidebar.html",
+    "default_title": "Research Collector",
+    "default_icon": {
+      "48": "icons/icon-48.png"
+    }
+  },
+
+  "icons": {
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png"
+  }
+}

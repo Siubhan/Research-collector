@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    // Подсветка browser.* API как глобальных
+    "javascript.preferences.quoteStyle": "double",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.associations": {
+      "manifest.json": "jsonc"
+    },
+    // Исключить из поиска
+    "search.exclude": {
+      "node_modules": true,
+      "*.zip": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "firefox-devtools.vscode-firefox-debug",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "christian-kohler.path-intellisense"
+    ]
+  }
+}

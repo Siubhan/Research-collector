@@ -1,0 +1,231 @@
+/* ── Reset & Variables ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #111118;
+  --surface:   #1c1c28;
+  --surface2:  #252535;
+  --border:    #2a2a3a;
+  --accent:    #7c6af7;
+  --accent-dim:#3d3475;
+  --text:      #e8e8f0;
+  --text-muted:#888899;
+  --danger:    #e05454;
+  --radius:    8px;
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.5 -apple-system, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.logo { font-size: 18px; }
+.header h1 { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
+
+/* ── Sections ────────────────────────────────────────────────────────────── */
+.sessions-panel {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.entries-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  padding: 12px 14px;
+}
+
+.panel-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.panel-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.panel-title .accent { color: var(--accent); text-transform: none; letter-spacing: 0; font-weight: 600; }
+
+.export-row { display: flex; gap: 4px; }
+
+/* ── Sessions List ───────────────────────────────────────────────────────── */
+.sessions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.session-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 10px 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  max-width: 100%;
+}
+.session-chip:hover { border-color: var(--accent); }
+.session-chip.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: #fff;
+}
+.session-chip .chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 140px;
+}
+.chip-count {
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--surface2);
+  border-radius: 10px;
+  padding: 1px 5px;
+}
+.session-chip.active .chip-count { background: rgba(255,255,255,0.15); color: #fff; }
+.chip-del {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.chip-del:hover { color: var(--danger); }
+
+/* ── Chip Button ─────────────────────────────────────────────────────────── */
+.chip-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── Search ──────────────────────────────────────────────────────────────── */
+#search {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font: 12px/1.4 inherit;
+  padding: 7px 10px;
+  outline: none;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+#search:focus { border-color: var(--accent); }
+#search::placeholder { color: var(--text-muted); }
+
+/* ── Entries List ────────────────────────────────────────────────────────── */
+.entries-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.entries-list::-webkit-scrollbar { width: 4px; }
+.entries-list::-webkit-scrollbar-track { background: transparent; }
+.entries-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.empty-state {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: center;
+  padding: 32px 16px;
+  line-height: 1.7;
+}
+
+/* ── Entry Card ──────────────────────────────────────────────────────────── */
+.entry-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  transition: border-color 0.15s;
+}
+.entry-card:hover { border-color: var(--accent-dim); }
+
+.entry-text {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 8px;
+  border-left: 2px solid var(--accent);
+  padding-left: 8px;
+  word-break: break-word;
+}
+
+.entry-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.entry-source {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.entry-source:hover { text-decoration: underline; }
+.entry-date {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.entry-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+.btn-delete {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+.btn-delete:hover { color: var(--danger); background: rgba(224, 84, 84, 0.1); }
