@@ -2,14 +2,15 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Research Collector — Панель</title>
+  <title>Research Collector</title>
   <link rel="stylesheet" href="sidebar.css" />
 </head>
 <body>
   <div class="app">
+
     <!-- Шапка -->
     <header class="header">
-      <span class="logo">📚</span>
+      <img class="logo-img" src="../icons/icon-48.png" />
       <h1>Research Collector</h1>
     </header>
 
@@ -26,23 +27,124 @@
     <section class="entries-panel">
       <div class="panel-row">
         <h2 class="panel-title">
-          Цитаты:
-          <span id="session-name" class="accent">—</span>
+          Цитаты: <span id="session-name" class="accent">—</span>
         </h2>
         <div class="export-row">
           <button id="btn-export-json" class="chip-btn">JSON</button>
           <button id="btn-export-txt" class="chip-btn">TXT</button>
+          <button id="btn-export-md" class="chip-btn">MD</button>
         </div>
       </div>
 
-      <!-- Поиск -->
-      <input id="search" type="search" placeholder="Поиск по цитатам…" />
+      <!-- Поиск + сортировка -->
+      <div class="search-row">
+        <input id="search" type="search" placeholder="Поиск по цитатам…" />
+        <select id="sort-select" class="sort-select">
+          <option value="date-desc">Новые</option>
+          <option value="date-asc">Старые</option>
+          <option value="source">Источник</option>
+          <option value="color">Цвет</option>
+        </select>
+      </div>
 
-      <!-- Список цитат -->
+      <!-- Фильтр по цвету -->
+      <div id="color-filter" class="color-filter"></div>
+
       <div id="entries-list" class="entries-list">
-        <p class="empty-state">Нет сохранённых цитат.<br>Выделите текст на странице и выберите «Сохранить цитату».</p>
+        <p class="empty-state">Нет цитат.<br>Выделите текст и нажмите ПКМ → «Сохранить цитату».</p>
       </div>
     </section>
+
+  </div>
+
+  <!-- ── Модальное окно: просмотр/редактирование цитаты ── -->
+  <div id="modal-entry" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Цитата</h3>
+        <button id="modal-close" class="icon-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <label class="field-label">Заголовок <span class="field-optional">(необязательно)</span></label>
+        <input id="modal-title" type="text" class="modal-input" placeholder="Например: Ключевой аргумент…" />
+
+        <label class="field-label">Текст</label>
+        <textarea id="modal-text" class="modal-textarea" rows="5"></textarea>
+
+        <label class="field-label">Цвет <span class="field-optional">(необязательно)</span></label>
+        <div class="color-picker" id="entry-color-picker">
+          <button class="color-swatch color-swatch--none" data-color="" title="Без цвета">✕</button>
+          <button class="color-swatch" data-color="#7c6af7" style="background:#7c6af7"></button>
+          <button class="color-swatch" data-color="#f76a6a" style="background:#f76a6a"></button>
+          <button class="color-swatch" data-color="#6af7a0" style="background:#6af7a0"></button>
+          <button class="color-swatch" data-color="#f7c46a" style="background:#f7c46a"></button>
+          <button class="color-swatch" data-color="#6ac8f7" style="background:#6ac8f7"></button>
+          <button class="color-swatch" data-color="#f76ac8" style="background:#f76ac8"></button>
+          <button class="color-swatch" data-color="#a0f76a" style="background:#a0f76a"></button>
+          <button class="color-swatch" data-color="#f7a06a" style="background:#f7a06a"></button>
+        </div>
+
+        <label class="field-label">Источник</label>
+        <a id="modal-url" class="modal-url" href="#" target="_blank"></a>
+
+        <label class="field-label">Комментарий</label>
+        <textarea id="modal-comment" class="modal-textarea modal-comment" rows="3" placeholder="Добавьте заметку к цитате…"></textarea>
+      </div>
+      <div class="modal-footer">
+        <span id="modal-date" class="modal-date"></span>
+        <div class="modal-actions">
+          <button id="modal-save" class="btn-primary">Сохранить</button>
+          <button id="btn-move" class="btn-secondary">Перенести…</button>
+          <button id="modal-delete" class="btn-danger">Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Модальное окно: перенос цитаты ── -->
+  <div id="modal-move" class="modal hidden">
+    <div class="modal-box modal-box--sm">
+      <div class="modal-header">
+        <h3>Перенести в…</h3>
+        <button id="modal-move-close" class="icon-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="move-sessions-list" class="move-sessions-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Модальное окно: создание/редактирование сессии ── -->
+  <div id="modal-session" class="modal hidden">
+    <div class="modal-box modal-box--sm">
+      <div class="modal-header">
+        <h3 id="modal-session-title">Новая работа</h3>
+        <button id="modal-session-close" class="icon-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <label class="field-label">Название</label>
+        <input id="modal-session-name" type="text" class="modal-input" placeholder="Диплом — глава 2" />
+
+        <label class="field-label">Цвет</label>
+        <div class="color-picker">
+          <button class="color-swatch" data-color="#7c6af7" style="background:#7c6af7"></button>
+          <button class="color-swatch" data-color="#f76a6a" style="background:#f76a6a"></button>
+          <button class="color-swatch" data-color="#6af7a0" style="background:#6af7a0"></button>
+          <button class="color-swatch" data-color="#f7c46a" style="background:#f7c46a"></button>
+          <button class="color-swatch" data-color="#6ac8f7" style="background:#6ac8f7"></button>
+          <button class="color-swatch" data-color="#f76ac8" style="background:#f76ac8"></button>
+          <button class="color-swatch" data-color="#a0f76a" style="background:#a0f76a"></button>
+          <button class="color-swatch" data-color="#f7a06a" style="background:#f7a06a"></button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div></div>
+        <div class="modal-actions">
+          <button id="modal-session-cancel" class="btn-secondary">Отмена</button>
+          <button id="modal-session-save" class="btn-primary">Сохранить</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="sidebar.js"></script>

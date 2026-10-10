@@ -2,46 +2,35 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research Collector</title>
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
   <div class="app">
     <header class="header">
-      <span class="logo">📚</span>
-      <h1 class="title">Research Collector</h1>
-      <button id="btn-sidebar" class="icon-btn" title="Открыть панель">⊞</button>
+      <img class="logo-img" src="../icons/icon-48.png" />
+      <h1>Research Collector</h1>
     </header>
 
-    <!-- Текущая сессия -->
-    <section class="session-bar">
-      <div class="session-info">
-        <span class="session-label">Сессия:</span>
+    <section class="session-info">
+      <div class="session-row">
+        <span class="session-dot" id="session-dot"></span>
         <span id="session-name" class="session-name">—</span>
+        <button id="btn-edit-session" class="icon-btn" title="Редактировать">✎</button>
       </div>
-      <button id="btn-switch" class="text-btn">Сменить</button>
     </section>
 
-    <!-- Счётчик -->
-    <div class="stats">
-      <span id="count">0</span> цитат сохранено
-    </div>
-
-    <!-- Быстрое добавление -->
-    <section class="quick-add">
-      <textarea id="quick-text" placeholder="Вставьте текст цитаты…" rows="3"></textarea>
-      <button id="btn-save" class="btn-primary">Сохранить цитату с этой страницы</button>
+    <section class="add-entry">
+      <textarea id="input-text" placeholder="Вставьте цитату…" rows="4"></textarea>
+      <input id="input-title" type="text" placeholder="Заголовок (необязательно)" />
+      <input id="input-comment" type="text" placeholder="Комментарий (необязательно)" />
+      <button id="btn-save" class="btn-primary">Сохранить цитату</button>
     </section>
 
-    <!-- Действия -->
     <section class="actions">
-      <button id="btn-export-json" class="btn-secondary">⬇ JSON</button>
-      <button id="btn-export-txt" class="btn-secondary">⬇ Источники</button>
-      <button id="btn-new-session" class="btn-secondary">＋ Новая работа</button>
+      <button id="btn-sidebar" class="btn-secondary">Открыть боковую панель</button>
     </section>
   </div>
-
   <script src="popup.js"></script>
 </body>
 </html>

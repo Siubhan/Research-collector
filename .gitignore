@@ -4,6 +4,8 @@
 web-ext-artifacts/
 .web-extension-id
 .amo-upload-uuid
+amo-metadata.json
+.idea/*
 
 # VS Code 
 .vscode/*
